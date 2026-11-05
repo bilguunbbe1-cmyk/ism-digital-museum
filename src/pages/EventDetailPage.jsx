@@ -22,8 +22,13 @@ export default function EventDetailPage() {
               <h1>{e.title}</h1>
               {e.description && <p className="lead">{e.description}</p>}
             </header>
+            {e.cover_image_url && (
+              <div className="event-poster">
+                <img src={e.cover_image_url} alt={`${e.title}: нүүр зураг`} />
+              </div>
+            )}
             {e.photos.length === 0 ? (
-              <Message title="Зурагт цомог хоосон байна" />
+              !e.cover_image_url && <Message title="Зурагт цомог хоосон байна" />
             ) : (
               <ul className="photo-grid">
                 {e.photos.map((p, i) => (

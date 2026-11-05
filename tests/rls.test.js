@@ -168,6 +168,12 @@ test('javascript: холбоосыг өгөгдлийн сан хүлээж ав
 
 test('зургийг зөвхөн өөрийн хавтаст оруулна, бусдын файлыг устгахгүй', async () => {
   await user(ALICE, () => db.query(`insert into storage.objects (bucket_id, name) values ('media', '${ALICE}/a.png')`));
+  const listedByGuest = await guest(() => db.query('select name from storage.objects'));
+  assert.equal(listedByGuest.rows.length, 0, 'зочин файлын жагсаалт авах ёсгүй');
+  const listedByBob = await user(BOB, () => db.query('select name from storage.objects'));
+  assert.equal(listedByBob.rows.length, 0, 'бусдын файлын жагсаалт харагдах ёсгүй');
+  const listedByAlice = await user(ALICE, () => db.query('select name from storage.objects'));
+  assert.equal(listedByAlice.rows.length, 1);
   await user(BOB, async () => {
     await denied(() => db.query(`insert into storage.objects (bucket_id, name) values ('media', '${ALICE}/evil.png')`));
     const del = await db.query(`delete from storage.objects where name = '${ALICE}/a.png'`);

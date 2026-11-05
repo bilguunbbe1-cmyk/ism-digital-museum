@@ -238,9 +238,11 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values ('media', 'media', true, 5242880,
         array['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
 
+-- Нийтийн bucket-ийн файлыг URL-аар уншихад SELECT бодлого хэрэггүй. Энэ бодлого нь зөвхөн
+-- файл устгах үйлдэлд хэрэгтэй тул зочин файлын жагсаалт авах боломжгүй.
 create policy media_select on storage.objects
-  for select to anon, authenticated
-  using (bucket_id = 'media');
+  for select to authenticated
+  using (bucket_id = 'media' and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin()));
 create policy media_insert on storage.objects
   for insert to authenticated
   with check (bucket_id = 'media' and (storage.foldername(name))[1] = auth.uid()::text);
