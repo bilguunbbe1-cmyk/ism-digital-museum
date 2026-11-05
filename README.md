@@ -84,7 +84,8 @@ Supabase-ийн **Authentication > URL Configuration** хэсэгт Site URL-и�
 npm test
 ```
 
-- `tests/rls.test.js`: миграцийг локал PostgreSQL (PGlite) дээр ажиллуулж, зочин, бүтээгч, админы эрхээр RLS-ийг шалгана. Supabase-ийн `auth`, `storage` схемийг stub орлодог тул эцсийн шалгалтыг бодит төсөл дээр давтана.
+- `tests/rls.test.js`: миграцийг локал PostgreSQL (PGlite) дээр ажиллуулж, зочин, бүтээгч, админы эрхээр RLS-ийг шалгана. Supabase-ийн `auth`, `storage` схемийг stub орлодог.
+- `supabase/tests/rls_live_check.sql`: бодит төслийн SQL Editor дээр RLS-ийг шалгаж, бүх өөрчлөлтийг буцаана. `ok` багана бүгд `true` байх ёстой.
 - `tests/filter.test.js`, `tests/timeline.test.js`: хайлт, Time Machine-ийн логик.
 
 ## Баримт бичиг
