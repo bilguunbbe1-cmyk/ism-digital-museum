@@ -46,14 +46,14 @@ function Machine({ timeline }) {
 
   const goTo = (i) => setParams({ year: String(timeline[i].year) }, { replace: true });
 
-  // Автомат аялал: дуусмагц зогсоно.
+  // Автомат аялал: сүүлийн онд хүрээд зогсоно. Шалгалтыг timer дотор хийдэг тул сүүлийн
+  // оноос дахин эхлүүлэхэд URL шинэчлэгдэхээс өмнө тоглолт зогсохгүй.
   useEffect(() => {
     if (!playing) return undefined;
-    if (index >= timeline.length - 1) {
-      setPlaying(false);
-      return undefined;
-    }
-    const timer = setTimeout(() => goTo(index + 1), PLAY_INTERVAL_MS);
+    const timer = setTimeout(() => {
+      if (index >= timeline.length - 1) setPlaying(false);
+      else goTo(index + 1);
+    }, PLAY_INTERVAL_MS);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing, index]);
