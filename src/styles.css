@@ -269,8 +269,8 @@ a.manage-title:hover { text-decoration: underline; }
 .tm-meter-track span { display: block; height: 100%; background: var(--night-soft); transition: width 0.4s ease; }
 .tm-meter-count { text-align: right; font-variant-numeric: tabular-nums; color: var(--night-soft); }
 @keyframes tm-arrive {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(10px); }
+  to { transform: none; }
 }
 
 /* Хөл */
