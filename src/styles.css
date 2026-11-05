@@ -132,6 +132,7 @@ input[aria-invalid='true'], textarea[aria-invalid='true'] { border-color: var(--
 .detail-frame img { width: 100%; }
 .detail-frame .img-empty { aspect-ratio: 3 / 2; }
 .detail-body h1 { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1rem; }
+.detail-body .badge { margin-bottom: 0.9rem; }
 .detail-description { white-space: pre-line; font-size: 1.05rem; }
 .detail-meta { margin: 1.2rem 0 0; border-top: 1px solid var(--ink); }
 .detail-meta > div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--line); }
@@ -194,7 +195,8 @@ input[aria-invalid='true'], textarea[aria-invalid='true'] { border-color: var(--
 
 /* Маягт */
 .auth-page { max-width: 460px; }
-.form { display: grid; gap: 1rem; margin: 1rem 0; }
+.form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; margin: 1rem 0; }
+input[type='file'] { max-width: 100%; }
 .form .btn { justify-self: start; }
 .field label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
 .field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
@@ -278,7 +280,7 @@ a.manage-title:hover { text-decoration: underline; }
 .footer-title { font-family: var(--serif); font-size: 1.3rem; color: var(--paper); margin-bottom: 0.3rem; }
 .sample-note { margin: 0.6rem 0 0; color: var(--gold); }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .menu-toggle { display: block; }
   .site-nav {
     display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch;

@@ -19,7 +19,7 @@ const toDbValue = (field, value) => {
 
 // Багш, арга хэмжээ, түүх, ангилал гэсэн админы хэсгүүд ижил бүтэцтэй тул
 // талбарын тохиргоогоор ажилладаг нэг компонент ашиглав.
-export default function CrudSection({ title, table, load: loader, fields, rowTitle, rowMeta, renderExtra }) {
+export default function CrudSection({ title, table, load: loader, fields, rowTitle, rowMeta, renderExtra, relatedFiles }) {
   const load = useLoad(loader);
   const [editing, setEditing] = useState(null); // null | 'new' | мөр
   const [form, setForm] = useState({});
@@ -67,8 +67,10 @@ export default function CrudSection({ title, table, load: loader, fields, rowTit
     if (!window.confirm(`"${rowTitle(row)}" бичлэгийг устгах уу? Энэ үйлдлийг буцаах боломжгүй.`)) return;
     setError(null);
     try {
+      // Холбоотой мөрүүд cascade-аар устах тул файлын замыг устгахаас өмнө авна.
+      const extraFiles = relatedFiles ? await relatedFiles(row) : [];
       await deleteRow(table, row.id);
-      await Promise.all(imageFields.map((f) => removeStoredImage(row[f.name])));
+      await Promise.all([...imageFields.map((f) => row[f.name]), ...extraFiles].map(removeStoredImage));
       if (editing?.id === row.id) setEditing(null);
       await load.reload();
     } catch (err) {

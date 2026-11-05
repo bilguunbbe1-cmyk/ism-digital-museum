@@ -4,6 +4,7 @@ import {
   deleteExhibit,
   fetchAllExhibits,
   fetchCategories,
+  fetchEventPhotos,
   fetchEvents,
   fetchMilestones,
   fetchTeachers,
@@ -105,6 +106,7 @@ const TABS = {
           { name: 'cover_image_url', label: 'Нүүр зураг', type: 'image' },
         ]}
         renderExtra={(row) => <EventPhotos eventId={row.id} />}
+        relatedFiles={async (row) => (await fetchEventPhotos(row.id)).map((p) => p.image_url)}
       />
     ),
   },
